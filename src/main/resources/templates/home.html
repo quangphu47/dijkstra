@@ -2,9 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Dijkstra Algorithm</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1>demo</h1>
+<div class="container">
+    <h1 style="{color: #1b71aa}">Thuật toán Dijkstra</h1>
+
+    <div>
+        <h2>Tạo biểu đồ</h2>
+        <form th:action="@{/}" th:object="${edgeForm}" method="post" id="submit">
+        <div class="form-group">
+            <label>Đỉnh đồ thị (cách nhau bởi dấu ","):</label>
+            <input type="text" class="form-control" id="vertices" th:field="*{vertices}" placeholder="Nhập các đỉnh">
+
+            <label>Đỉnh cần tính khoảng cách: </label>
+            <input type="text" class="form-control" th:field="*{rootEdge}" placeholder="Nhập các gốc"/>
+        </div>
+        <div id="add-edge">
+
+        </div>
+        <button onclick="addEdge()" type="button" class="btn btn-outline-primary">Thêm cạnh</button>
+
+
+            <p style="display: none"><input id="edge-string" type="text" th:field="*{edges}"/></p>
+            <p style="display: none"><input name="submit-id" type="submit" id="submit-id" value="Tính toán"/></p>
+            <button onclick="fSubmit()" type="button" class="btn btn-outline-primary">Tính toán</button>
+        </form>
+    </div>
+
+
+</div>
+
+<script>
+    function addEdge() {
+        var tag = document.createElement("div");
+        tag.innerHTML = "<div style=\"display: flex\">\n" +
+            "                    <div class=\"form-group\">\n" +
+            "                        <label for=\"formGroupExampleInput2\">Đỉnh nguồn</label>\n" +
+            "                        <input type=\"text\" class=\"form-control edge\" id=\"formGroupExampleInput2\" placeholder=\"Nhập cạnh nguồn\">\n" +
+            "                    </div>\n" +
+            "                    <div class=\"form-group\">\n" +
+            "                        <label for=\"formGroupExampleInput2\">Đỉnh đích</label>\n" +
+            "                        <input type=\"text\" class=\"form-control edge\" id=\"formGroupExampleInput2\" placeholder=\"Nhập cạnh đích\">\n" +
+            "                    </div>\n" +
+            "                    <div class=\"form-group\">\n" +
+            "                        <label for=\"formGroupExampleInput2\">Khoảng cách</label>\n" +
+            "                        <input type=\"text\" class=\"form-control edge\" id=\"formGroupExampleInput2\" placeholder=\"Nhập khoảng cách\">\n" +
+            "                    </div>\n" +
+            "                    <div>\n" +
+            "                        <button onclick=\"deleteEdge(this)\" style=\"margin-top: 25px; margin-left: 20px\" type=\"button\" class=\"btn btn-outline-primary\">Xóa</button>\n" +
+            "                    </div>\n" +
+            "                </div>";
+        var element = document.getElementById("add-edge");
+        element.appendChild(tag);
+    }
+
+    function deleteEdge(e) {
+        e.parentElement.parentElement.parentElement.remove();
+    }
+
+    function fSubmit() {
+        let listEdge = document.getElementsByClassName('edge');
+        let text = "";
+
+        for (let i = 0; i < listEdge.length; i++) {
+            text += listEdge[i].value+":";
+        }
+
+        document.getElementById("edge-string").setAttribute("value", text);
+        document.getElementById("submit").submit();
+    }
+
+
+</script>
+
 </body>
 </html>
