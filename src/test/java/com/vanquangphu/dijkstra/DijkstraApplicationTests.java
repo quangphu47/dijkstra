@@ -8,6 +8,7 @@ class DijkstraApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println("Đã thay đổi");
+		System.out.println("original code");
+
 	}
 }
